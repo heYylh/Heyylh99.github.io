@@ -1,0 +1,67 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>抽奖页面</title>  
+<style>  
+  body {  
+    background-image: url('1.jpg'); /* 替换为你的背景图片URL */  
+    background-repeat: no-repeat;  
+    background-position: center center; /* 将背景图像居中 */  
+    background-attachment: fixed; /* 固定背景图像，不随页面滚动 */  
+    background-size: auto;
+  }  
+  .container {  
+    text-align: center;  
+    padding-top: 100px;  
+  }  
+  .prize {  
+    margin-top: 20px;  
+    font-size: 24px;  
+  }  
+  .prize img {  
+    width: 100px;  
+    height: auto;  
+  }  
+</style>  
+</head>  
+<body>  
+<div class="container">  
+  <h1>抽奖</h1>  
+  <button onclick="drawPrize()">抽奖</button>  
+  <div id="prizeDisplay" class="prize"></div>  
+</div>  
+  
+<script>  
+// 奖项列表（示例）  
+const prizes = [  
+  { name: '恭喜你，中了一个老公', image: '1.jpg' }, // 第一次抽奖的固定奖品  
+  { name: '没想到吧还是我，好好好不闹了。下面正式开始了', image: '1.jpg' }, // 第二次抽奖的固定奖品  
+  // ... 其他奖项（正式抽奖）  
+  { name: '一等奖：', image: '1.jpg' },  
+  { name: '奖品B', image: '1.jpg' },  
+  { name: '奖品C', image: '1.jpg' }  
+];  
+  
+let drawCount = 0; // 抽奖次数  
+  
+function drawPrize() {  
+  drawCount++;  
+  let prize;  
+  if (drawCount === 1) {  
+    prize = prizes[0]; // 第一次固定奖品  
+  } else if (drawCount === 2) {  
+    prize = prizes[1]; // 第二次固定奖品  
+  } else {  
+    // 第三次及以后，随机抽取正式奖项  
+    prize = prizes[Math.floor(Math.random() * (prizes.length - 2)) + 2];  
+  }  
+  
+  // 显示中奖信息  
+  const prizeDisplay = document.getElementById('prizeDisplay');  
+  prizeDisplay.innerHTML = `<h2>${prize.name}</h2><img src="${prize.image}" alt="${prize.name}">`;  
+}  
+</script>  
+</body>  
+</html>
