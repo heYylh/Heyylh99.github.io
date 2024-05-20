@@ -1,0 +1,187 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>520专属活动</title>  
+<style>  
+  body {  
+    margin: 0;  
+    padding: 0;  
+    font-family: Arial, sans-serif;  
+    background: #f0f0f0;  
+  }  
+  .container {  
+    width: 100%;  
+        max-width: 450px; /* 假设9是相对于屏幕宽度的比例 */  
+        height: 800px; /* 假设16是相对于屏幕宽度的比例 */  
+        background: url('beijing.jpg') no-repeat center center;  
+        background-size: cover;  
+        display: flex;  
+        flex-direction: column;  
+        align-items: center;  
+        justify-content: space-around;  
+        padding: 20px;  
+  }  
+  .prize {  
+    margin-top: 24px;  
+    font-size: 20px;  
+    text-align: center;  
+    color: rgb(234, 24, 91);
+  }  
+  .prize img {  
+    width: 250px;  
+    height: auto;  
+    text-align: center;  
+  }  
+  h1 {  
+    color: rgb(45, 177, 218); /* 你可以将这里设置为任何你想要的颜色 */  
+  }  
+  .container button {  
+    width: 200px; /* 宽度 */  
+    height: 50px; /* 高度 */  
+    font-size: 20px; /* 字体大小 */  
+    padding: 10px; /* 内边距 */  
+    border-radius: 5px; /* 边框圆角 */  
+    background-color: #69a4a8; /* 背景颜色 */  
+    color: white; /* 字体颜色 */  
+    border: none; /* 去掉边框 */  
+    cursor: pointer; /* 鼠标悬停时显示小手图标 */  
+  }  
+    
+  /* （可选）为按钮添加点击效果 */  
+  .container button:hover {  
+    background-color: #b85fb2; /* 按下时的背景颜色 */  
+  }  
+  .modal {  
+    display: none; /* 默认隐藏 */  
+    position: fixed; /* Stay in place */  
+    z-index: 1; /* Sit on top */  
+    left: 0;  
+    top: 0;  
+    width: 100%; /* Full width */  
+    height: 100%; /* Full height */  
+    overflow: auto; /* Enable scroll if needed */  
+    background-color: rgb(0,0,0); /* Fallback color */  
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */  
+  }  
+  
+  /* Modal Content/Box */  
+  .modal-content {  
+    background-color: #fefefe;  
+    margin: 15% auto; /* 15% from the top and centered */  
+    padding: 20px;  
+    border: 1px solid #888;  
+    width: 80%; /* Could be more or less, depending on screen size */  
+  }  
+  
+  /* The Close Button */  
+  .close {  
+    color: #aaa;  
+    float: right;  
+    font-size: 28px;  
+    font-weight: bold;  
+  }  
+  
+  .close:hover,  
+  .close:focus {  
+    color: black;  
+    text-decoration: none;  
+    cursor: pointer;  
+  }  
+  
+  /* 奖池按钮样式 */  
+  #poolButton {  
+    position: absolute;  
+    top: 20px; /* 你可以根据需要调整这个值 */  
+    right: 20px; /* 你可以根据需要调整这个值 */  
+    padding: 10px 20px;  
+    background-color: #333;  
+    color: white;  
+    border: none;  
+    cursor: pointer;  
+  }  
+</style>  
+</head>  
+<body>  
+  <audio autoplay loop>  
+    <source src="xiangyue.mp3" type="audio/mpeg">  
+    <!-- 可以添加多个source标签以支持不同格式的音乐文件 -->  
+  </audio>  
+  <div class="container">  
+    <h1>易杨蕾卉520专属抽奖活动</h1>  
+    <button onclick="drawPrize()">点击抽奖</button>  
+    <div id="prizeDisplay" class="prize"></div>  
+    <button id="poolButton">查看奖池</button>  
+  
+  <!-- 添加模态框 -->  
+    <div id="myModal" class="modal">  
+      <div class="modal-content">  
+        <span class="close">&times;</span>  
+        <h2>奖池内容</h2>  
+        <p>特等奖：万能心愿券一张和其他所有等级奖励</p>
+        <p>一等奖：小王子与玫瑰项链</p>
+        <p>二等奖：现金红包52.0</p>
+        <p>三等奖：王庆凯的亲亲一小时</p>
+        <!-- 这里可以列出奖池中的所有奖品 -->  
+        <!-- 示例：<p>奖品1</p><p>奖品2</p> ... -->  
+      </div>  
+    </div>  
+
+  
+<script>  
+// 奖项列表（示例）  
+const prizes = [  
+  { name: '恭喜你！得到了我', image: '1.jpg' }, // 第一次抽奖的固定奖品  
+  { name: '没想到吧还是我，还有一次机会哦', image: '2.jpg' }, // 第二次抽奖的固定奖品  
+  // ... 其他奖项（正式抽奖）  
+  { name: '恭喜你！获得特等奖！', image: '3.jpg' },  
+  
+];  
+  
+let drawCount = 0; // 抽奖次数  
+
+function drawPrize() {  
+  drawCount++;  
+  let prize;  
+  if (drawCount === 1) {  
+    prize = prizes[0]; // 第一次固定奖品  
+  } else if (drawCount === 2) {  
+    prize = prizes[1]; // 第二次固定奖品  
+  } else {  
+    // 第三次及以后，随机抽取正式奖项  
+    prize = prizes[Math.floor(Math.random() * (prizes.length - 2)) + 2];  
+  }  
+
+  
+  // 显示中奖信息  
+  const prizeDisplay = document.getElementById('prizeDisplay');  
+  prizeDisplay.innerHTML = `<h2>${prize.name}</h2><img src="${prize.image}" alt="${prize.name}">`;  
+}  
+var modal = document.getElementById("myModal");  
+  
+// 获取奖池按钮元素  
+var poolButton = document.getElementById("poolButton");  
+  
+// 获取<span>元素，用于关闭模态框  
+var span = document.getElementsByClassName("close")[0];  
+  
+// 当用户点击奖池按钮时显示模态框  
+poolButton.onclick = function() {  
+  modal.style.display = "block";  
+}  
+  
+// 当用户点击<span> (x), 关闭模态框  
+span.onclick = function() {  
+  modal.style.display = "none";  
+}  
+  
+// 当用户点击模态框外部时，关闭模态框  
+window.onclick = function(event) {  
+  if (event.target == modal) {  
+    modal.style.display = "none";  
+  }  
+}  
+</script>  
+</body>  
+</html>
