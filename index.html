@@ -1,0 +1,78 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>抽奖页面</title>  
+<style>  
+    body {  
+        background-image: url('1.jpg');  
+        background-repeat: repeat;  
+    }  
+    #activity-name {  
+        text-align: center;  
+        margin-top: 50px;  
+        font-size: 36px;  
+    }  
+    #lottery-button {  
+        display: block;  
+        margin: 50px auto;  
+        padding: 10px 20px;  
+        font-size: 18px;  
+        cursor: pointer;  
+    }  
+</style>  
+</head>  
+<body>  
+  
+<div id="抽奖">  
+    
+</div>  
+  
+<audio autoplay loop>  
+    <source src="xiangyue.mp3" type="audio/mpeg">  
+      
+</audio>  
+  
+<button id="lottery-button" onclick="drawLottery()">开始抽奖</button>  
+  
+<div id="result"></div>  
+  
+<!-- 以下是JavaScript代码，用于实现抽奖逻辑 -->  
+<script>  
+// 模拟奖品数组，这里仅包含名称和图片路径  
+const prizes = [  
+    {name: '特别奖', image: '1.jpg', probability: 1}, // 第一次抽奖  
+    {name: '唯一奖', image: '1.jpg', probability: 1}, // 第二次抽奖  
+    // 第三次及以后开始添加更多奖品，每个奖品的probability可以相同以实现等概率  
+    {name: '普通奖1', image: 'normal-prize1.jpg', probability: 1},  
+    {name: '普通奖2', image: 'normal-prize2.jpg', probability: 1},  
+    // ... 添加更多奖品  
+];  
+  
+let currentDraw = 0; // 当前是第几次抽奖  
+  
+function drawLottery() {  
+    if (currentDraw < 2) {  
+        // 如果是前两次抽奖，直接给出预设的奖品  
+        showPrize(prizes[currentDraw]);  
+        currentDraw++;  
+    } else {  
+        // 第三次及以后抽奖，随机选择奖品  
+        const randomIndex = Math.floor(Math.random() * prizes.length);  
+        showPrize(prizes[randomIndex]);  
+    }  
+}  
+  
+function showPrize(prize) {  
+    const resultDiv = document.getElementById('result');  
+    resultDiv.innerHTML = `  
+        <h2>${prize.name}</h2>  
+        <img src="${prize.image}" alt="${prize.name}" style="max-width: 300px;">  
+    `;  
+    // 这里可以添加更多逻辑，如播放中奖音效、弹出提示框等  
+}  
+</script>  
+  
+</body>  
+</html>
